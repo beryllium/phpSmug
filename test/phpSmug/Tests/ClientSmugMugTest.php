@@ -4,10 +4,11 @@ namespace phpSmug\Tests;
 
 use phpSmug\Client;
 use GuzzleHttp\Client as GuzzleClient;
+use PHPUnit\Framework\TestCase;
 
-class ClientSmugMugTest extends \PHPUnit_Framework_TestCase
+class ClientSmugMugTest extends TestCase
 {
-    public function setup()
+    public function setup(): void
     {
         $options = [
             'AppName' => 'phpSmug Unit Testing',

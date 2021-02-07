@@ -2,11 +2,13 @@
 
 namespace phpSmug\Tests;
 
+use PHPUnit\Framework\TestCase;
+
 /**
  * @class
  * Test properties of our codebase rather than the actual code.
  */
-class PsrComplianceTest extends \PHPUnit_Framework_TestCase
+class PsrComplianceTest extends TestCase
 {
     /**
      * @test

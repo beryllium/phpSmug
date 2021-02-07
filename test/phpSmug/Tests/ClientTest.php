@@ -8,13 +8,14 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7;
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Middleware;
+use PHPUnit\Framework\TestCase;
 
-class ClientTest extends \PHPUnit_Framework_TestCase
+class ClientTest extends TestCase
 {
     /**
      * Setup a few variables for use in later tests.
      */
-    public function setup()
+    public function setup(): void
     {
         $this->APIKey = 'I-am-not-a-valid-APIKey-but-it-does-not-matter-for-this-test';
         $this->user = 'random-user';
@@ -43,11 +44,11 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException \phpSmug\Exception\InvalidArgumentException
-     * @expectedExceptionMessage An API key is required for all SmugMug interactions.
      */
     public function shouldThrowExceptionIfNoApikey()
     {
+        $this->expectException(\phpSmug\Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage("An API key is required for all SmugMug interactions.");
         $client = new Client();
     }
 
@@ -481,11 +482,11 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException \phpSmug\Exception\InvalidArgumentException
-     * @expectedExceptionMessage File not found: /path/to/non/existant/file.jpg
      */
     public function shouldThrowExceptionIfUploadFileNotFound()
     {
+        $this->expectException(\phpSmug\Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage("File not found: /path/to/non/existant/file.jpg");
         $client = new Client($this->APIKey);
         $client->upload('album/rAnD0m', '/path/to/non/existant/file.jpg');
     }
@@ -556,11 +557,11 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException \phpSmug\Exception\InvalidArgumentException
-     * @expectedExceptionMessage An OAuthSecret is required for all SmugMug OAuth interactions.
      */
     public function shouldThrowExcetionIfNoOAuthSecret()
     {
+        $this->expectException(\phpSmug\Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage("An OAuthSecret is required for all SmugMug OAuth interactions.");
         $client = new Client($this->APIKey);
         $client->setToken($this->oauth_token, $this->oauth_token_secret);
     }
@@ -648,22 +649,22 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @expectedException \phpSmug\Exception\InvalidArgumentException
-     * @expectedExceptionMessage All methods need an argument.
      */
     public function shouldThrowInvalidArgumentExceptionIfCallMethodWithoutDestination()
     {
+        $this->expectException(\phpSmug\Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage("All methods need an argument.");
         $client = new Client($this->APIKey);
         $client->get();
     }
 
     /**
      * @test
-     * @expectedException \phpSmug\Exception\BadMethodCallException
-     * @expectedExceptionMessage Invalid method: badmethod
      */
     public function shouldThrowBadMethodCallException()
     {
+        $this->expectException(\phpSmug\Exception\BadMethodCallException::class);
+        $this->expectExceptionMessage("Invalid method: badmethod");
         $client = new Client($this->APIKey);
         $client->badmethod('album/r4nD0m');
     }
